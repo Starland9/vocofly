@@ -29,3 +29,9 @@ show_percentage = false
 stream = SubResource("AudioStreamMicrophone_vleka")
 autoplay = true
 bus = &"Record"
+
+[node name="FftTimer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="FftTimer" to="." method="_on_fft_timer_timeout"]
