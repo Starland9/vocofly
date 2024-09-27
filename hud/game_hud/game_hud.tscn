@@ -20,7 +20,7 @@ offset_right = 1134.0
 offset_bottom = 481.0
 theme = ExtResource("1_627eq")
 theme_override_styles/fill = SubResource("StyleBoxFlat_8sobp")
-max_value = 200.0
+max_value = 3000.0
 value = 30.0
 fill_mode = 3
 show_percentage = false
@@ -31,7 +31,7 @@ autoplay = true
 bus = &"Record"
 
 [node name="FftTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.01
 autostart = true
 
 [connection signal="timeout" from="FftTimer" to="." method="_on_fft_timer_timeout"]
