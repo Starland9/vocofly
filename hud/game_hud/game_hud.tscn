@@ -23,7 +23,6 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_8sobp")
 max_value = 3000.0
 value = 30.0
 fill_mode = 3
-show_percentage = false
 
 [node name="AudioStearmRecord" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_vleka")

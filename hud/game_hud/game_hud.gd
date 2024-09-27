@@ -6,6 +6,7 @@ signal onRecord(value: float)
 
 var effect : AudioEffectRecord
 var recording : AudioStreamWAV
+var fft_thread : Thread = Thread.new()
 
 const sample_rate = 44100.0  # Fréquence d'échantillonnage
 const min_frequency = 80
@@ -17,12 +18,11 @@ func _ready() -> void:
 	var record_idx = AudioServer.get_bus_index("Record")
 	effect = AudioServer.get_bus_effect(record_idx, 0)
 	effect.set_recording_active(true)
+	fft_thread.start(_threaded_fft, Thread.PRIORITY_NORMAL )
 
 
 func _process(_delta: float) -> void:
 	pass
-
-
 
 func set_progress_bar_value(value: float):
 	progress_bar.value = value
@@ -73,13 +73,18 @@ func _normalize_audio(audio_data):
 	return audio_data
 
 func _on_fft_timer_timeout() -> void:
-	if effect.is_recording_active():
-		recording = effect.get_recording()
-		if recording:
-			var data = recording.data
-			data.reverse()
-			var frequency = get_dominant_frequency(data)
-			
-			if min_frequency <= frequency and frequency <= max_frequency:
-				print(frequency)
-				set_progress_bar_value(frequency)
+	pass
+	
+
+func _threaded_fft():
+	while true:
+		if effect.is_recording_active():
+			recording = effect.get_recording()
+			if recording:
+				var data = recording.data
+				data.reverse()
+				var frequency = get_dominant_frequency(data)
+				if min_frequency <= frequency and frequency <= max_frequency:
+					print(frequency)
+					call_deferred("set_progress_bar_value", frequency)
+		await get_tree().create_timer(0.01).timeout	
