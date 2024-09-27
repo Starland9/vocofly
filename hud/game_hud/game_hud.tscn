@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsdjhnpp7gssd"]
+
+[ext_resource type="Theme" uid="uid://cp5lpcgkwxoof" path="res://themes/main_theme.tres" id="1_627eq"]
+[ext_resource type="Script" path="res://hud/game_hud/game_hud.gd" id="1_vs6cf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8sobp"]
+bg_color = Color(0, 0.719913, 0.335348, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_vleka"]
+
+[node name="GameHUD" type="CanvasLayer"]
+script = ExtResource("1_vs6cf")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 1119.0
+offset_top = 69.0
+offset_right = 1134.0
+offset_bottom = 481.0
+theme = ExtResource("1_627eq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8sobp")
+value = 30.0
+fill_mode = 3
+show_percentage = false
+
+[node name="AudioStearmRecord" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_vleka")
+autoplay = true
+bus = &"Record"
